@@ -1,4 +1,3 @@
-// schemas/index.js
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
@@ -28,7 +27,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    getCities(search: String, limit: Int): [City]    # Query to fetch cities
+    getCities(search: String, limit: Int , offset: Int): [City]    # Query to fetch cities
     getWeather(cityName: String!): Weather          # Query to fetch weather and forecast
   }
 `;

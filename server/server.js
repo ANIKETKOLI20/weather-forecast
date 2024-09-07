@@ -2,6 +2,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import typeDefs from './schemas/index.js'; // Import GraphQL schema definitions
 import resolvers from './resolvers/index.js'; // Import GraphQL resolvers
+import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import path from 'path';
 
@@ -10,12 +11,23 @@ dotenv.config();
 
 const app = express(); // Initialize Express app
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Initialize Apollo Server with type definitions and resolvers
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: ({ req }) => ({ req }) // Context setup for requests
 });
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+
+  app.get("*", (req, res) => {
+      res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+  });
+}
 
 async function startServer() {
   // Start the Apollo server

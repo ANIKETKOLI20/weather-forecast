@@ -11,6 +11,9 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "ag-grid-community": "^32.1.0",
+    "ag-grid-enterprise": "^32.1.0",
+    "ag-grid-react": "^32.1.0",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
     "daisyui": "^4.12.10",
@@ -22,7 +25,9 @@
     "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
     "react-table": "^7.8.0",
+    "react-window": "^1.8.10",
     "tailwindcss": "^3.4.10",
+    "weather-forecast": "file:..",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

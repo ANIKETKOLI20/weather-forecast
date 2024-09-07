@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import { DataGrid } from '@mui/x-data-grid';
 import { TextField, Box, Container, CircularProgress } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const GET_CITIES = gql`
   query GetCities($search: String, $limit: Int) {
@@ -19,6 +20,7 @@ function Cities() {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
+  const isSmallScreen = useMediaQuery('(max-width: 600px)'); // Media query for small screens
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -41,9 +43,9 @@ function Cities() {
   }
 
   const columns = [
-    { field: 'name', headerName: 'City', width: 200, sortable: true },
-    { field: 'country', headerName: 'Country', width: 200, sortable: true },
-    { field: 'timezone', headerName: 'Timezone', width: 200, sortable: true },
+    { field: 'name', headerName: 'City', width: isSmallScreen ? 150 : 200, sortable: true },
+    { field: 'country', headerName: 'Country', width: isSmallScreen ? 150 : 200, sortable: true },
+    { field: 'timezone', headerName: 'Timezone', width: isSmallScreen ? 200 : 200, sortable: true },
   ];
 
   const rows =
@@ -72,7 +74,7 @@ function Cities() {
     return (
       <div
         onContextMenu={(e) => handleRightClick(e, params.row.name)}
-        style={{ cursor: 'context-menu', color: 'black' }} // Text color set to black
+        style={{ cursor: 'context-menu', color: 'black' }}
       >
         {params.value}
       </div>
@@ -86,8 +88,17 @@ function Cities() {
 
   return (
     <Container
-      maxWidth="lg"
-      className="bg-base-300 flex flex-col items-center pt-20 h-screen"
+      maxWidth={false} // Span full width of the screen
+      disableGutters // Remove default padding of the container
+      className="bg-base-700 flex flex-col items-center pt-20 h-screen" // Use Tailwind class bg-base-700
+      sx={{
+        minHeight: '100vh', // Ensure it covers the full viewport height
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#fff', // Set a text color for better contrast
+      }}
     >
       <Box className="absolute top-5 right-5 w-1/3 z-10">
         <TextField
@@ -97,13 +108,11 @@ function Cities() {
           margin="normal"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="input input-bordered input-primary w-full max-w-xs text-white"
           InputLabelProps={{ style: { color: '#fff' } }}
           InputProps={{
             style: {
-              color: '#fff', // Changed input text color to dark gray
+              color: '#fff',
               borderRadius: '8px',
-              borderColor: '#fff', // Changed border color to dark gray
             },
           }}
           sx={{
@@ -117,6 +126,13 @@ function Cities() {
               '&.Mui-focused fieldset': {
                 borderColor: '#fff',
               },
+              '&.MuiOutlinedInput-notchedOutline': {
+                borderColor: '#fff !important',
+              },
+            },
+            '& .MuiInputBase-root': {
+              borderRadius: '8px',
+              borderColor: '#fff',
             },
           }}
         />
@@ -147,8 +163,8 @@ function Cities() {
             style={{
               position: 'relative',
               overflow: 'auto',
-              paddingRight: '10px', // Adjusted for a smaller scrollbar
-              backgroundColor: '#f5f5f5', // Light gray background
+              paddingRight: '10px',
+              backgroundColor: '#f5f5f5',
             }}
           >
             <DataGrid
@@ -160,11 +176,11 @@ function Cities() {
               onRowClick={handleRowClick}
               sx={{
                 '& .MuiDataGrid-columnHeaderTitle': {
-                  color: '#333', // Dark gray for header text
+                  color: '#333',
                 },
                 '& .MuiDataGrid-columnHeader': {
-                  backgroundColor: '#ccc', // Slightly darker gray for header background
-                  color: '#333', // Dark gray for header text
+                  backgroundColor: '#ccc',
+                  color: '#333',
                   '&:hover': {
                     color: '#333',
                   },
@@ -181,10 +197,10 @@ function Cities() {
                   borderRadius: '8px',
                 },
                 '& .MuiTablePagination-root': {
-                  color: '#333', // Dark gray for pagination text
+                  color: '#333',
                 },
                 '& .MuiDataGrid-cell': {
-                  color: 'black', // Black color for the data cells
+                  color: 'black',
                 },
               }}
             />
