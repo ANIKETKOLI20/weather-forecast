@@ -18,9 +18,7 @@ This is a React application that displays a list of cities with search, sorting,
 
 Watch the demo video to see the application in action:
 
-[![Cities Viewer Demo](https://drive.google.com/file/d/1xhsfksa2nkzaLpitpabxBxgetGBUsW9a/view?usp=sharing)
-
-
+https://drive.google.com/file/d/1xhsfksa2nkzaLpitpabxBxgetGBUsW9a/view?usp=sharing
 
 ## Technologies Used
 
