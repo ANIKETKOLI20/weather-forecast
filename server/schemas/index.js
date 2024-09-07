@@ -1,6 +1,6 @@
+// schemas/index.js
 import { gql } from 'apollo-server-express';
 
-// Define GraphQL types and queries
 const typeDefs = gql`
   type City {
     id: String
@@ -16,7 +16,7 @@ const typeDefs = gql`
     windSpeed: Float
     pressure: Int
     icon: String
-    forecast: [Forecast]  # Array of Forecast objects
+    forecast: [Forecast]  # Include forecast data as a list of Forecast objects
   }
 
   type Forecast {
@@ -28,8 +28,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    getCities(search: String, limit: Int): [City]  # Query to fetch cities
-    getWeather(cityName: String!): Weather        # Query to fetch weather
+    getCities(search: String, limit: Int): [City]    # Query to fetch cities
+    getWeather(cityName: String!): Weather          # Query to fetch weather and forecast
   }
 `;
 

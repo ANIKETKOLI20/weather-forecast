@@ -1,6 +1,9 @@
+import dotenv from 'dotenv'
 import axios from 'axios';
 
-const CITY_API_URL = 'https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/geonames-all-cities-with-a-population-1000/records?limit=20&refine=feature_code%3A%22PPL%22';
+dotenv.config();
+
+const CITY_API_URL = process.env.CITY_API_URL
 
 export async function getCities(search, limit) {
   try {

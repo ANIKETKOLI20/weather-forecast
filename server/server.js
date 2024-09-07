@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 // Load environment variables from .env file
-dotenv.config({ path: path.resolve('.env') });
+dotenv.config();
 
 const app = express(); // Initialize Express app
 
